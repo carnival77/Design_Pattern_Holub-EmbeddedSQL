@@ -62,11 +62,11 @@ import java.util.*;
  * @see CSVImporter
  */
 
-public class CSVExporter implements Table.Exporter
+public class HTMLExporter implements Table.Exporter
 {	private final Writer out;
 	private 	  int	 width;
 
-	public CSVExporter( Writer out )
+	public HTMLExporter( Writer out )
 	{	this.out = out;
 	}
 
@@ -77,7 +77,8 @@ public class CSVExporter implements Table.Exporter
 
 	{	this.width = width;
 		out.write(tableName == null ? "<anonymous>" : tableName );
-		out.write("\n");
+//		out.write("\n");
+		out.write("<br>");
 		storeRow( columnNames ); // comma separated list of columns ids
 	}
 
@@ -91,16 +92,13 @@ public class CSVExporter implements Table.Exporter
 			// if the column data is null.
 			if( datum != null )	{
 				out.write( datum.toString() );
-//				System.out.println("---------------test -----------------");
-//				System.out.println(datum.toString());
-//				System.out.println("---------------test -----------------");
 			}
 
 			if( --i > 0 )
-				out.write(",\t");
-//				out.write(",\n");
+				out.write("\n");
 		}
-		out.write("\n");
+//		out.write("\n");
+		out.write("<br>");
 	}
 
 	public void startTable() throws IOException {/*nothing to do*/}

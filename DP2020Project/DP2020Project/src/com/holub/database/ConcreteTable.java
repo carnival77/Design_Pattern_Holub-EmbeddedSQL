@@ -808,8 +808,17 @@ import com.holub.tools.ArrayIterator;
 																				// "people" table will
 																				// fail if this operation fails.
 
-			Writer out = new FileWriter("people");
-			people.export(new CSVExporter(out));
+//			Writer out = new FileWriter("people");
+//			Writer out = new FileWriter( "people.csv" );
+//			people.export(new CSVExporter(out));
+//			Writer out = new FileWriter( "people.html" );
+//			people.export(new HTMLExporter(out));
+			
+			Writer out = new FileWriter( "test_xml.xml" );
+			people.export(new XMLExporter(out));
+			
+//			Writer out = new FileWriter( "people.csv" );
+//			people.export( new CSVExporter(out) );
 			out.close();
 
 			Reader in = new FileReader("people");

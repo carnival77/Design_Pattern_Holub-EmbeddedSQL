@@ -62,11 +62,11 @@ import java.util.*;
  * @see CSVImporter
  */
 
-public class CSVExporter implements Table.Exporter
+public class XMLExporter implements Table.Exporter
 {	private final Writer out;
 	private 	  int	 width;
 
-	public CSVExporter( Writer out )
+	public XMLExporter( Writer out )
 	{	this.out = out;
 	}
 
@@ -76,31 +76,32 @@ public class CSVExporter implements Table.Exporter
 							   Iterator columnNames ) throws IOException
 
 	{	this.width = width;
-		out.write(tableName == null ? "<anonymous>" : tableName );
+		String xml_first = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+		out.write(xml_first);
+		out.write("<XML title="+tableName+" type=\"xml\">");
 		out.write("\n");
+//		out.write(tableName == null ? "<anonymous>" : tableName );
+//		out.write("&#10;");
 		storeRow( columnNames ); // comma separated list of columns ids
 	}
 
 	public void storeRow( Iterator data ) throws IOException
 	{	int i = width;
-		while( data.hasNext() )
-		{	Object datum = data.next();
-
+		while( data.hasNext() )	
+		{	
+			Object datum = data.next();
 			// Null columns are represented by an empty field
 			// (two commas in a row). There's nothing to write
 			// if the column data is null.
 			if( datum != null )	{
 				out.write( datum.toString() );
-//				System.out.println("---------------test -----------------");
-//				System.out.println(datum.toString());
-//				System.out.println("---------------test -----------------");
 			}
 
 			if( --i > 0 )
-				out.write(",\t");
-//				out.write(",\n");
+				out.write("\n");
 		}
 		out.write("\n");
+//		out.write("<br>");
 	}
 
 	public void startTable() throws IOException {/*nothing to do*/}
