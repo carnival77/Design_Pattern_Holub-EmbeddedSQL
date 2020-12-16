@@ -76,10 +76,18 @@ public class HTMLExporter implements Table.Exporter
 							   Iterator columnNames ) throws IOException
 
 	{	this.width = width;
+		out.write("<!doctype html>");
+		out.write("<html>");
+		out.write("<head>");
+		out.write("<title>");
 		out.write(tableName == null ? "<anonymous>" : tableName );
+		out.write("</title>");
+		out.write("<body>");
 //		out.write("\n");
 		out.write("<br>");
 		storeRow( columnNames ); // comma separated list of columns ids
+		out.write("</body>");
+		out.write("</html>");
 	}
 
 	public void storeRow( Iterator data ) throws IOException
@@ -100,6 +108,7 @@ public class HTMLExporter implements Table.Exporter
 //		out.write("\n");
 		out.write("<br>");
 	}
+	
 
 	public void startTable() throws IOException {/*nothing to do*/}
 	public void endTable()   throws IOException {/*nothing to do*/}

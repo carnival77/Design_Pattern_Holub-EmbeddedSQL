@@ -75,15 +75,62 @@ public class XMLImporter implements Table.Importer
                         : new BufferedReader(in)
 	                    ;
 	}
+	
 	public void startTable()			throws IOException
-	{	tableName   = in.readLine().trim();
-		columnNames = in.readLine().split("\\s*,\\s*");
+	{	
+		ArrayList<String> column_list = new ArrayList<String>();
+		
+		String line = in.readLine().trim();
+		
+		StringTokenizer st = new StringTokenizer(line);
+		
+		boolean flag=true;
+
+		while(flag) {
+			if(st.nextToken().toString().equals("title=" ) ) {
+				tableName = st.nextToken().toString();
+				flag=false;
+			}
+		}
+		
+		flag = true;
+		String test = "";
+
+		while(flag) {
+			line = in.readLine().trim();
+			st = new StringTokenizer(line);
+			if(st.countTokens()==1) 
+			{
+				break;
+			}
+			else 
+			{
+				for(int n=0; n<st.countTokens();n++) 
+				{
+					if(st.nextToken().toString() != null)
+					{
+						test+=st.nextToken().toString();
+					}
+				}
+				column_list.add(test);
+				test="";
+			}
+		}	
+		
+		columnNames = new String[column_list.size()];
+			
+		int n=0;
+		
+		for(String temp:column_list) {
+			columnNames[n++] = temp;
+		}
 	}
 	public String loadTableName()		throws IOException
 	{	return tableName;
 	}
 	public int loadWidth()			    throws IOException
-	{	return columnNames.length;
+	{	
+		return columnNames.length;
 	}
 	public Iterator loadColumnNames()	throws IOException
 	{	return new ArrayIterator(columnNames);  //{=CSVImporter.ArrayIteratorCall}

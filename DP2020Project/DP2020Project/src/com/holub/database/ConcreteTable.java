@@ -816,13 +816,21 @@ import com.holub.tools.ArrayIterator;
 			
 			Writer out = new FileWriter( "test_xml.xml" );
 			people.export(new XMLExporter(out));
+			out.write("</XML>");
 			
 //			Writer out = new FileWriter( "people.csv" );
 //			people.export( new CSVExporter(out) );
 			out.close();
 
-			Reader in = new FileReader("people");
-			people = new ConcreteTable(new CSVImporter(in));
+//			Reader in = new FileReader("people.csv");
+//			people = new ConcreteTable(new CSVImporter(in));
+			
+			Reader in = new FileReader("test_xml.xml");
+			
+			Table test_xml = TableFactory.create(new XMLImporter(in));
+			
+//			Reader in = new FileReader("test_xml.xml");
+//			test_xml = new ConcreteTable(new XMLImporter(in));
 			in.close();
 		}
 

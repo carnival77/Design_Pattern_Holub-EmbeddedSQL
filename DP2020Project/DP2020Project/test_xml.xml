@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><XML title=people type="xml">
-<row>
-<last>Holub</last><first>Allen</first><addrId>1</addrId></row>
-<row>
-<last>Flintstone</last><first>Wilma</first><addrId>2</addrId></row>
-<row>
-<last>Flintstone</last><first>Fred</first><addrId>2</addrId></row>
+<?xml version="1.0" encoding="UTF-8"?><XML title= people type="xml">
+<row><last> Holub </last><first> Allen </first><addrId> 1 </addrId></row>
+<row><last> Flintstone </last><first> Wilma </first><addrId> 2 </addrId></row>
+<row><last> Flintstone </last><first> Fred </first><addrId> 2 </addrId></row>
+</XML>

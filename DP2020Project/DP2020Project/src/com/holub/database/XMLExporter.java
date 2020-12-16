@@ -83,11 +83,12 @@ public class XMLExporter implements Table.Exporter
 	{	this.width = width;
 		String xml_first = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 		out.write(xml_first);
-		out.write("<XML title="+tableName+" type=\"xml\">");
+		out.write("<XML title= "+tableName+" type=\"xml\">");
 		out.write("\n");
 //		out.write(tableName == null ? "<anonymous>" : tableName );
 //		out.write("&#10;");
 		storeRow( columnNames ); // comma separated list of columns ids
+//		out.write("</XML>");
 	}
 
 	public void storeRow( Iterator data ) throws IOException
@@ -105,22 +106,23 @@ public class XMLExporter implements Table.Exporter
 		Object addrId = data_arr.get(2).toString();
 		
 		if(data_arr.size()>3) {
-			out.write("<row>\n");
-			out.write("<"+last+">");
+			out.write("<row>");
+			out.write("<"+last+"> ");
 			out.write(data_arr.get(width*(a+1)).toString());
-			out.write("</"+last+">");
+			out.write(" </"+last+">");
 			
-			out.write("<"+first+">");
+			out.write("<"+first+"> ");
 			out.write(data_arr.get(width*(a+1)+1).toString());
-			out.write("</"+first+">");
+			out.write(" </"+first+">");
 			
-			out.write("<"+addrId+">");
+			out.write("<"+addrId+"> ");
 			out.write(data_arr.get(width*(a+1)+2).toString());
-			out.write("</"+addrId+">");
+			out.write(" </"+addrId+">");
 			out.write("</row>\n");
 			
 			a++;
 		}
+		
 	}
 	
 
