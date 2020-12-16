@@ -62,9 +62,14 @@ import java.util.*;
  * @see CSVImporter
  */
 
+
+
 public class XMLExporter implements Table.Exporter
 {	private final Writer out;
 	private 	  int	 width;
+	
+	ArrayList<Object> data_arr = new ArrayList<Object>();
+	int a=0;
 
 	public XMLExporter( Writer out )
 	{	this.out = out;
@@ -86,23 +91,38 @@ public class XMLExporter implements Table.Exporter
 	}
 
 	public void storeRow( Iterator data ) throws IOException
-	{	int i = width;
-		while( data.hasNext() )	
+	{	
+		int i = width;
+		while( data.hasNext() )	// row
 		{	
-			Object datum = data.next();
-			// Null columns are represented by an empty field
-			// (two commas in a row). There's nothing to write
-			// if the column data is null.
-			if( datum != null )	{
-				out.write( datum.toString() );
-			}
-
-			if( --i > 0 )
-				out.write("\n");
+			Object datum = data.next(); // element
+			
+			data_arr.add(datum);
+			
 		}
-		out.write("\n");
-//		out.write("<br>");
+		Object last = data_arr.get(0).toString();
+		Object first = data_arr.get(1).toString();
+		Object addrId = data_arr.get(2).toString();
+		
+		if(data_arr.size()>3) {
+			out.write("<row>\n");
+			out.write("<"+last+">");
+			out.write(data_arr.get(width*(a+1)).toString());
+			out.write("</"+last+">");
+			
+			out.write("<"+first+">");
+			out.write(data_arr.get(width*(a+1)+1).toString());
+			out.write("</"+first+">");
+			
+			out.write("<"+addrId+">");
+			out.write(data_arr.get(width*(a+1)+2).toString());
+			out.write("</"+addrId+">");
+			out.write("</row>\n");
+			
+			a++;
+		}
 	}
+	
 
 	public void startTable() throws IOException {/*nothing to do*/}
 	public void endTable()   throws IOException {/*nothing to do*/}
